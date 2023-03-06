@@ -22,7 +22,6 @@ const Sidebar = () => {
             <header className="position-relative mt-2 mb-2">
                 <div className="d-flex align-items-center image ps-2">
                     <img src={LogoIcon} alt="" className="logo-icon"/>
-                    <img src={LogoText} alt="" className="logo-text"/>
                 </div>
             </header>
             <div className="menu-bar mt-2 border-top">
