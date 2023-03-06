@@ -1,0 +1,142 @@
+/* Start Main Sidebar */
+.main-sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 88px;
+    padding: 10px 14px;
+    transition: .3s;
+    z-index: 100;
+    overflow: hidden;
+}
+.main-sidebar:hover {
+    width: 250px;
+}
+.main-sidebar .nav-link {
+    height: 50px;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+.main-sidebar .icon {
+    min-width: 60px;
+    border-radius: 6px;
+}
+.main-sidebar header .image img.logo-icon {
+    height: 40px;
+    border-radius: 6px;
+    margin-right: 2rem;
+    transition: .3s;
+}
+.main-sidebar:hover .image img.logo-icon {
+    margin-right: 1rem;
+}
+.main-sidebar header .image img.logo-text {
+    height: 50px;
+    border-radius: 6px;
+}
+
+.main-sidebar .icon {
+    min-width: 60px;
+    border-radius: 6px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.main-sidebar .icon {
+    color: var(--gray-text-color);
+    transition: .3s;
+}
+.main-sidebar .nav-text {
+    color: var(--gray-text-color);
+}
+.main-sidebar .text {
+    font-size: 17px;
+    font-weight: 500;
+    white-space: nowrap;
+    opacity: 0;
+}
+.main-sidebar:hover .text {
+    opacity: 1;
+}
+.main-sidebar .nav-link .nav-link-item {
+    list-style: none;
+    height: 100%;
+    background-color: transparent;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    border-radius: 15px;
+    text-decoration: none;
+    transition: .3s;
+}
+.main-sidebar .nav-link .active .icon,
+.main-sidebar .nav-link .active .text,
+.main-sidebar .nav-link .nav-link-item:hover .icon,
+.main-sidebar .nav-link .nav-link-item:hover .text {
+    color: var(--blue-color);
+}
+.main-sidebar.close .nav-link .active .icon,
+.main-sidebar.close .nav-link .active .text,
+.main-sidebar.close .nav-link .nav-link-item:hover .icon,
+.main-sidebar.close .nav-link .nav-link-item:hover .text {
+    background-color: var(--blue-color);
+    color: #fff;
+}
+.main-sidebar .menu-bar {
+    height: calc(100% - 55px);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow-y: scroll;
+}
+.menu-bar::-webkit-scrollbar {
+    display: none;
+}
+.main-content-holder {
+    position: absolute;
+    top: 0;
+    left: 88px;
+    height: 100vh;
+    width: calc(100% - 88px);
+    transition: .3s;
+}
+.main-sidebar:hover ~ .main-content-holder {
+    left: 250px;
+    min-height: 100vh;
+    width: calc(100% - 250px);
+}
+/* End Main Sidebar */
+
+/* Start Header */
+.main-header {
+    height: 78px;
+}
+.main-header .main-title {
+    color: var(--blue-color);
+}
+/* End Header */
+
+/* Start Main Content */
+.kanban-view-holder .view-content .kanban-content {
+    border: .01rem solid var(--blue-color);
+}
+
+.kanban-view-holder .view-content .kanban-content .box-header {
+    color: var(--blue-color);
+    border-bottom: .01rem solid #83ade0;
+}
+
+.kanban-view-holder .view-content .kanban-content .box-body th {
+    font-size: 14px !important;
+}
+.kanban-view-holder .view-content .kanban-content .box-body tr {
+    border-color: #efefef;
+}
+.kanban-view-holder .view-content .kanban-content .box-body td {
+    font-size: 14px !important;
+}
+/* End Main Content */

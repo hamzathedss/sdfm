@@ -1,0 +1,39 @@
+.main-login-page .login-holder {
+    width: 90%;
+}
+
+@media (min-width: 576px) {
+    .main-login-page .login-holder {
+        width: 80%;
+    }
+}
+
+@media (min-width: 992px) {
+    .main-login-page .login-holder {
+        width: 70%;
+    }
+}
+
+@media (min-width: 1200px) {
+    .main-login-page .login-holder {
+        width: 50%;
+    }
+}
+
+@media (min-width: 1400px) {
+    .main-login-page .login-holder {
+        width: 40%;
+    }
+}
+
+.main-login-page .login-holder .enter-button {
+    border: 0;
+    color: white;
+    background-color: var(--blue-color);
+    padding: .7rem 2rem;
+    border-radius: .6rem;
+}
+
+.main-login-page .login-holder .enter-button:hover {
+    background-color: var(--blue-dark-color);
+}

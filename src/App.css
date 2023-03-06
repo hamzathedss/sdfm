@@ -1,0 +1,26 @@
+/* Start Global Rules */
+* {
+  box-sizing: border-box;
+}
+
+*:hover {
+  outline: none;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+.c-pointer {
+  cursor: pointer !important;
+}
+
+input {
+  line-height: normal;
+}
+
+a {
+  text-decoration: none;
+}
+/* End Global Rules */
