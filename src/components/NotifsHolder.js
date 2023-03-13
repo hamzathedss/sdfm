@@ -40,7 +40,7 @@ const NotifsHolder = (props) => {
                 <div className="background-gray-color rounded-3 p-2 border border-danger shadow-sm d-flex">
                     <div><FaBell size="25" className="text-danger"/></div>
                     <div className="text-center flex-grow-1">
-                        <span className="fw-bold me-2 text-black-50">{notificationData[0].n_picking_order}:</span>
+                        <span className="fw-bold me-2 text-black-50">{notificationData[0] ? `${notificationData[0].n_picking_order}:` : ''}</span>
                         {Object.values(notificationData).map((ele, index) =>
                             <span key={index}>
                                 <span className="d-none d-sm-inline">

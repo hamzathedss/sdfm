@@ -38,7 +38,11 @@ const Header = (props) => {
         updateTime();
     }, []);
     const today = new Date();
-    const date = today.toLocaleDateString();
+    const dd = String(today.getDate()).padStart(2, '0');
+    const mm = String(today.getMonth() + 1).padStart(2, '0'); // January is 0!
+    const yyyy = today.getFullYear();
+
+    const date = dd + '/' + mm + '/' + yyyy;
 
     return (
         <div className="px-xl-4 py-2 bg-white main-header shadow-sm row m-0 justify-content-center align-items-center">
