@@ -31,12 +31,12 @@ const NotifsHolder = (props) => {
     return (
         <>
             {dataType === "depotage" && (
-                <div className="background-gray-color rounded-3 p-2 text-center">
+                <div className="background-gray-color rounded-3 p-2 text-center border border-danger shadow-sm">
                     <div>{`${notificationData.vehicule_id} de ${notificationData.client_id} en parc`}</div>
                 </div>
             )}
             {dataType === "expedition" && (
-                <div className="background-gray-color rounded-3 p-2 text-center">
+                <div className="background-gray-color rounded-3 p-2 text-center border border-danger shadow-sm">
                     <span className="fw-bold me-2 text-black-50">{notificationData[0].n_picking_order}:</span>
                     {Object.values(notificationData).map((ele, index) =>
                         <span key={index}>
