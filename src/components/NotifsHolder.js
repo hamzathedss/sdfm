@@ -10,7 +10,6 @@ const NotifsHolder = (props) => {
     let dataType = props.type;
     const {isLoading, data} = useQuery(randomID, () => notificationService.getLastNotification(dataType));
     const notificationData = data || {"data": []}
-    console.log(notificationData, 'herefsfffs')
 
     if (isLoading) {
         return (
