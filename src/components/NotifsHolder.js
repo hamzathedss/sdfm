@@ -2,6 +2,7 @@ import {useId} from "react";
 import {useQuery} from "react-query";
 import {notificationService} from "../_services";
 import {ThreeDots} from "react-loader-spinner";
+import {FaBell} from "react-icons/fa";
 
 const NotifsHolder = (props) => {
     const randomID = useId();
@@ -31,29 +32,33 @@ const NotifsHolder = (props) => {
     return (
         <>
             {dataType === "depotage" && (
-                <div className="background-gray-color rounded-3 p-2 text-center border border-danger shadow-sm">
-                    <div>{`${notificationData.vehicule_id} de ${notificationData.client_id} en parc`}</div>
+                <div className="background-gray-color rounded-3 p-3 border border-danger shadow-sm d-flex align-items-center">
+                    <div><FaBell size="25" className="text-danger"/></div>
+                    <div className="text-center flex-grow-1">{`${notificationData.vehicule_id} de ${notificationData.client_id} en parc`}</div>
                 </div>
             )}
             {dataType === "expedition" && (
-                <div className="background-gray-color rounded-3 p-2 text-center border border-danger shadow-sm">
-                    <span className="fw-bold me-2 text-black-50">{notificationData[0].n_picking_order}:</span>
-                    {Object.values(notificationData).map((ele, index) =>
-                        <span key={index}>
-                            <span className="d-none d-sm-inline">
-                                <span
-                                    className="me-2">{ele.Destinataire} - {ele.NB_Colis_declare}{(index !== 1 && index !== 3) && (<>,</>)}</span>
-                                {index === 1 && (
-                                    <br/>
-                                )}
+                <div className="background-gray-color rounded-3 p-2 border border-danger shadow-sm d-flex">
+                    <div><FaBell size="25" className="text-danger"/></div>
+                    <div className="text-center flex-grow-1">
+                        <span className="fw-bold me-2 text-black-50">{notificationData[0].n_picking_order}:</span>
+                        {Object.values(notificationData).map((ele, index) =>
+                            <span key={index}>
+                                <span className="d-none d-sm-inline">
+                                    <span
+                                        className="me-2">{ele.Destinataire} - {ele.NB_Colis_declare}{(index !== 1 && index !== 3) && (<>,</>)}</span>
+                                    {index === 1 && (
+                                        <br/>
+                                    )}
+                                </span>
+                                <span className="d-sm-none">
+                                    <div
+                                        className="me-2">{ele.Destinataire} - {ele.NB_Colis_declare}{(index !== 3) && (<>,</>)}
+                                    </div>
+                                </span>
                             </span>
-                            <span className="d-sm-none">
-                                <div
-                                    className="me-2">{ele.Destinataire} - {ele.NB_Colis_declare}{(index !== 3) && (<>,</>)}
-                                </div>
-                            </span>
-                        </span>
-                    )}
+                        )}
+                    </div>
                 </div>
             )}
         </>
