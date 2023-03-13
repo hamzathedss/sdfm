@@ -1,6 +1,7 @@
 import {Outlet} from "react-router-dom";
 import Sidebar from "../../components/Sidebar";
 import "./private.css"
+import NewsFooter from "../../components/NewsFooter";
 
 const PLayout = () => {
     return (
@@ -10,6 +11,9 @@ const PLayout = () => {
                 <div id="private_content" className="main-content">
                     <Outlet/>
                 </div>
+            </div>
+            <div className="news-footer fixed-bottom bg-white">
+                <NewsFooter/>
             </div>
         </div>
     );

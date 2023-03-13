@@ -5,14 +5,14 @@ const Expeditions = () => {
 
     const KanbanBoxes = [
         {
-            id: 0,
-            title: "Encours",
-            name: "encours"
-        },
-        {
             id: 1,
             title: "Planifier",
             name: "planifier"
+        },
+        {
+            id: 0,
+            title: "Encours",
+            name: "encours"
         },
         {
             id: 2,
@@ -28,10 +28,10 @@ const Expeditions = () => {
 
     return (
         <div>
-            <Header title="Expeditions"/>
+            <Header title="Suivi d'Expédition" alpha_num="GWT62-UJSA&M%" type="expedition"/>
             <div className="kanban-view-holder p-4">
                 <div className="view-content">
-                    <div className="row">
+                    <div className="row mb-5 mb-lg-4">
                         {
                             KanbanBoxes.map(box =>
                                 <div key={box.id} className="col-lg-6 col-lg-4 col-xxl-3 mb-3 px-1">

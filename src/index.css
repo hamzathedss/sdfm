@@ -22,3 +22,10 @@ body {
   padding: 0;
   transition: all 0.3s ease;
 }
+
+.text-main-color {
+  color: var(--blue-color);
+}
+.background-gray-color {
+  background-color: var(--gray-bg-color);
+}

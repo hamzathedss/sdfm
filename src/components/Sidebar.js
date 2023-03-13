@@ -1,6 +1,5 @@
 import {NavLink} from "react-router-dom";
 import LogoIcon from "../assets/logoicon.png";
-import LogoText from "../assets/logotext.png";
 import {FaBoxes, FaPallet} from "react-icons/fa";
 
 const Sidebar = () => {

@@ -5,7 +5,9 @@ import {ThreeDots} from "react-loader-spinner";
 
 const ExpeditionsBox = (props) => {
     const randomID = useId();
-    const {isLoading, data} = useQuery(randomID, () => expeditionService.getExpeditionData());
+    let dataType = props.name;
+
+    const {isLoading, data} = useQuery(randomID, () => expeditionService.getExpeditionData(dataType));
     const expeditionData = data || {"data": []}
 
     if (isLoading) {
@@ -29,79 +31,22 @@ const ExpeditionsBox = (props) => {
         );
     }
 
-    let statut = props.name;
-
     return (
-        <>
-            {statut === "encours" && (
-                <tbody>
-                {
-                    expeditionData.encours && (
-                        expeditionData.encours.map(ele =>
-                            <tr className="text-center" key={ele.n_picking_order}>
-                                <td className="py-2">{ele.n_picking_order.slice(ele.n_picking_order.indexOf('_') + 1)}</td>
-                                <td className="py-2">{ele.matricule_vehicule}</td>
-                                <td className="py-2">{`${ele.correspondant.substring(0, 7)}..`}</td>
-                                <td className="py-2">{ele.quai_expedition}</td>
-                            </tr>
-                        )
-                    )
+        <tbody>
+        {
 
-                }
-                </tbody>
-            )}
-            {statut === "expedier" && (
-                <tbody>
-                {
-                    expeditionData.expedier && (
-                        expeditionData.expedier.map(ele =>
-                            <tr className="text-center" key={ele.n_picking_order}>
-                                <td className="py-2">{ele.n_picking_order.slice(ele.n_picking_order.indexOf('_') + 1)}</td>
-                                <td className="py-2">{ele.matricule_vehicule}</td>
-                                <td className="py-2">{`${ele.correspondant.substring(0, 7)}..`}</td>
-                                <td className="py-2">{ele.quai_expedition}</td>
-                            </tr>
-                        )
-                    )
+            Object.values(expeditionData).map(ele =>
+                <tr className="text-center" key={ele.n_picking_order}>
+                    <td className="py-2">{ele.n_picking_order.slice(ele.n_picking_order.indexOf('_') + 1)}</td>
+                    <td className="py-2">{ele.matricule_vehicule}</td>
+                    <td className="py-2">{`${ele.correspondant.substring(0, 7)}..`}</td>
+                    <td className="py-2">{ele.quai_expedition}</td>
+                </tr>
+            )
 
-                }
-                </tbody>
-            )}
-            {statut === "planifier" && (
-                <tbody>
-                {
-                    expeditionData.planifier && (
-                        expeditionData.planifier.map(ele =>
-                            <tr className="text-center" key={ele.n_picking_order}>
-                                <td className="py-2">{ele.n_picking_order.slice(ele.n_picking_order.indexOf('_') + 1)}</td>
-                                <td className="py-2">{ele.matricule_vehicule}</td>
-                                <td className="py-2">{`${ele.correspondant.substring(0, 7)}..`}</td>
-                                <td className="py-2">{ele.quai_expedition}</td>
-                            </tr>
-                        )
-                    )
+        }
+        </tbody>
 
-                }
-                </tbody>
-            )}
-            {statut === "sortie" && (
-                <tbody>
-                {
-                    expeditionData.sortie && (
-                        expeditionData.sortie.map(ele =>
-                            <tr className="text-center" key={ele.n_picking_order}>
-                                <td className="py-2">{ele.n_picking_order.slice(ele.n_picking_order.indexOf('_') + 1)}</td>
-                                <td className="py-2">{ele.matricule_vehicule}</td>
-                                <td className="py-2">{`${ele.correspondant.substring(0, 7)}..`}</td>
-                                <td className="py-2">{ele.quai_expedition}</td>
-                            </tr>
-                        )
-                    )
-
-                }
-                </tbody>
-            )}
-        </>
     );
 }
 

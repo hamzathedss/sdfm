@@ -5,19 +5,19 @@ const Depotages = () => {
 
     const KanbanBoxes = [
         {
-            id: 0,
-            title: "Encours",
-            name: "encours"
-        },
-        {
             id: 1,
             title: "Planifier",
             name: "planifier"
         },
         {
+            id: 0,
+            title: "Encours",
+            name: "encours"
+        },
+        {
             id: 2,
             title: "Terminées",
-            name: "termine"
+            name: "terminer"
         },
         {
             id: 3,
@@ -28,10 +28,10 @@ const Depotages = () => {
 
     return (
         <div>
-            <Header title="Dépotages"/>
+            <Header title="Suivi de Dépotage" alpha_num="&HSUA-?YHW@O6" type="depotage"/>
             <div className="kanban-view-holder p-4">
                 <div className="view-content">
-                    <div className="row">
+                    <div className="row mb-5 mb-lg-4">
                         {
                             KanbanBoxes.map(box =>
                                 <div key={box.id} className="col-lg-6 col-lg-4 col-xxl-3 mb-3 px-1">

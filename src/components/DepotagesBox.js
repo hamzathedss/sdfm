@@ -5,7 +5,9 @@ import {ThreeDots} from "react-loader-spinner";
 
 const ExpeditionsBox = (props) => {
     const randomID = useId();
-    const {isLoading, data} = useQuery(randomID, () => depotageService.getDepotageData());
+
+    let dataType = props.name;
+    const {isLoading, data} = useQuery(randomID, () => depotageService.getDepotageData(dataType));
     const depotagesData = data || {"data": []}
 
     if (isLoading) {
@@ -29,79 +31,20 @@ const ExpeditionsBox = (props) => {
         );
     }
 
-    let statut = props.name;
-
     return (
-        <>
-            {statut === "encours" && (
-                <tbody>
-                {
-                    depotagesData.encours && (
-                        depotagesData.encours.map(ele =>
-                            <tr className="text-center" key={ele.id}>
-                                <td className="py-2">{ele.N_de_quai}</td>
-                                <td className="py-2">{ele.vehicule_id}</td>
-                                <td className="py-2">{`${ele.client_id.substring(0, 7)}..`}</td>
-                                <td className="py-2">{ele.depotage_type_id}</td>
-                            </tr>
-                        )
-                    )
+        <tbody>
+        {
+            Object.values(depotagesData).map(ele =>
+                <tr className="text-center" key={ele.id}>
+                    <td className="py-2">{ele.N_de_quai}</td>
+                    <td className="py-2">{ele.vehicule_id}</td>
+                    <td className="py-2">{`${ele.client_id.substring(0, 7)}..`}</td>
+                    <td className="py-2">{ele.depotage_type_id}</td>
+                </tr>
+            )
 
-                }
-                </tbody>
-            )}
-            {statut === "planifier" && (
-                <tbody>
-                {
-                    depotagesData.planifier && (
-                        depotagesData.planifier.map(ele =>
-                            <tr className="text-center" key={ele.id}>
-                                <td className="py-2">{ele.N_de_quai}</td>
-                                <td className="py-2">{ele.vehicule_id}</td>
-                                <td className="py-2">{`${ele.client_id.substring(0, 7)}..`}</td>
-                                <td className="py-2">{ele.depotage_type_id}</td>
-                            </tr>
-                        )
-                    )
-
-                }
-                </tbody>
-            )}
-            {statut === "termine" && (
-                <tbody>
-                {
-                    depotagesData.termine && (
-                        depotagesData.termine.map(ele =>
-                            <tr className="text-center" key={ele.id}>
-                                <td className="py-2">{ele.N_de_quai}</td>
-                                <td className="py-2">{ele.vehicule_id}</td>
-                                <td className="py-2">{`${ele.client_id.substring(0, 7)}..`}</td>
-                                <td className="py-2">{ele.depotage_type_id}</td>
-                            </tr>
-                        )
-                    )
-
-                }
-                </tbody>
-            )}
-            {statut === "sortie" && (
-                <tbody>
-                {
-                    depotagesData.sortie && (
-                        depotagesData.sortie.map(ele =>
-                            <tr className="text-center" key={ele.id}>
-                                <td className="py-2">{ele.N_de_quai}</td>
-                                <td className="py-2">{ele.vehicule_id}</td>
-                                <td className="py-2">{`${ele.client_id.substring(0, 7)}..`}</td>
-                                <td className="py-2">{ele.depotage_type_id}</td>
-                            </tr>
-                        )
-                    )
-
-                }
-                </tbody>
-            )}
-        </>
+        }
+        </tbody>
     );
 }
 
