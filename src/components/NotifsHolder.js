@@ -33,7 +33,7 @@ const NotifsHolder = (props) => {
             {dataType === "depotage" && (
                 <div className="background-gray-color rounded-3 p-3 border border-danger shadow-sm d-flex align-items-center">
                     <div><FaBell size="25" className="text-danger"/></div>
-                    <div className="text-center flex-grow-1">{`${notificationData.vehicule_id} de ${notificationData.client_id} en parc`}</div>
+                    <div className="text-center flex-grow-1">{Object.keys(notificationData).length === 0 ? '' : `${notificationData.vehicule_id} de ${notificationData.client_id} en parc`}</div>
                 </div>
             )}
             {dataType === "expedition" && (
