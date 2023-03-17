@@ -148,6 +148,7 @@
 .news-footer .styles_newsticker__py7eW.styles_tickerItem__Vj57z {
     padding: .75rem;
     color: var(--blue-color);
+    font-size: 16px;
 }
 .news-footer .styles_newsticker__py7eW.styles_tickerItem__Vj57z:hover {
     background-color: #fff;
@@ -163,7 +164,7 @@
     flex-direction: row-reverse;
 }
 .news-footer .styles_newsWrapper__KvsKt .styles_meta__I1GUO {
-    font-size: 13px;
+    font-size: 16px;
     margin-right: 1.5rem;
     border-right: 1px solid var(--blue-color);
     padding-right: 1rem;
