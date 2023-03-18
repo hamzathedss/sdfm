@@ -41,25 +41,33 @@ const NotifsHolder = (props) => {
 
     let new_notifs;
     var channel = pusher.subscribe('sdfm-channel');
-    channel.bind('sdfm-depotage', function(data) {
-        new_notifs = JSON.stringify(data);
-        document.getElementById("notifs_holder").innerHTML = new_notifs;
+    channel.bind('sdfm-depotage', function (data) {
+        // new_notifs = JSON.stringify(data);
+        new_notifs = data;
+        let outputData;
+        if (dataType === "depotage") {
+            outputData = `${new_notifs.vehicule} de ${new_notifs.client} est en parc`;
+        }
+        document.getElementById("notifs_holder").innerHTML = outputData;
         audio.play();
     });
 
     return (
         <>
             {dataType === "depotage" && (
-                <div className="background-gray-color rounded-3 p-3 border border-danger shadow-sm d-flex align-items-center">
+                <div
+                    className="background-gray-color rounded-3 p-3 border border-danger shadow-sm d-flex align-items-center">
                     <div><FaBell size="25" className="text-danger"/></div>
-                    <div id="notifs_holder" className="text-center flex-grow-1">{Object.keys(notificationData).length === 0 ? '' : `${notificationData.vehicule_id} de ${notificationData.client_id} en parc`}</div>
+                    <div id="notifs_holder"
+                         className="text-center flex-grow-1">{Object.keys(notificationData).length === 0 ? '' : `${notificationData.vehicule_id} de ${notificationData.client_id} en parc`}</div>
                 </div>
             )}
             {dataType === "expedition" && (
                 <div className="background-gray-color rounded-3 p-2 border border-danger shadow-sm d-flex">
                     <div><FaBell size="25" className="text-danger"/></div>
                     <div id="notifs_holder" className="text-center flex-grow-1">
-                        <span className="fw-bold me-2 text-black-50">{notificationData[0] ? `${notificationData[0].n_picking_order}:` : ''}</span>
+                        <span
+                            className="fw-bold me-2 text-black-50">{notificationData[0] ? `${notificationData[0].n_picking_order}:` : ''}</span>
                         {Object.values(notificationData).map((ele, index) =>
                             <span key={index}>
                                 <span className="d-none d-sm-inline">

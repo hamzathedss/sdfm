@@ -24,7 +24,8 @@ const Depotages = () => {
             title: "Sortie",
             name: "sortie"
         },
-    ]
+    ];
+
 
     return (
         <div>
