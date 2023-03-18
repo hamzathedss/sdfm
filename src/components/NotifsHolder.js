@@ -1,4 +1,4 @@
-import {useId} from "react";
+import {useEffect, useId} from "react";
 import {useQuery} from "react-query";
 import {notificationService} from "../_services";
 import {ThreeDots} from "react-loader-spinner";
@@ -40,24 +40,38 @@ const NotifsHolder = (props) => {
     });
 
     let new_notifs;
+    let outputData;
     var channel = pusher.subscribe('sdfm-channel');
+    let notifs_box_holder = document.getElementById("notifs_box_holder");
+    let notifs_holder = document.getElementById("notifs_holder");
+    let notifs_icon = document.getElementById("notifs_icon");
+
     channel.bind('sdfm-depotage', function (data) {
         // new_notifs = JSON.stringify(data);
         new_notifs = data;
-        let outputData;
         if (dataType === "depotage") {
             outputData = `${new_notifs.vehicule} de ${new_notifs.client} est en parc`;
         }
-        document.getElementById("notifs_holder").innerHTML = outputData;
+        notifs_box_holder.classList.add('border-danger');
+        notifs_icon.classList.add('text-danger');
+        notifs_holder.innerHTML = outputData;
         audio.play();
+        const interval = setInterval(() => {
+            notifs_box_holder.classList.remove('border-danger');
+            notifs_icon.classList.remove('text-danger');
+            notifs_holder.innerHTML = '';
+        }, 60000); // 5 min
+        // utes in milliseconds
+        return () => clearInterval(interval);
     });
+
 
     return (
         <>
             {dataType === "depotage" && (
-                <div
-                    className="background-gray-color rounded-3 p-3 border border-danger shadow-sm d-flex align-items-center">
-                    <div><FaBell size="25" className="text-danger"/></div>
+                <div id="notifs_box_holder"
+                     className="background-gray-color rounded-3 p-3 border border-primary shadow-sm d-flex align-items-center">
+                    <div><FaBell size="25" className="text-primary" id="notifs_icon"/></div>
                     <div id="notifs_holder"
                          className="text-center flex-grow-1">{Object.keys(notificationData).length === 0 ? '' : `${notificationData.vehicule_id} de ${notificationData.client_id} en parc`}</div>
                 </div>
