@@ -3,11 +3,10 @@ import {useId} from "react";
 import {depotageService} from "../_services";
 import {ThreeDots} from "react-loader-spinner";
 
-const ExpeditionsBox = (props) => {
+const DepotagesPlanifier = () => {
     const randomID = useId();
 
-    let dataType = props.name;
-    const {isLoading, data} = useQuery(randomID, () => depotageService.getDepotageData(dataType));
+    const {isLoading, data} = useQuery(randomID, () => depotageService.getDepotagePlanifier());
     const depotagesData = data || {"data": []}
 
     if (isLoading) {
@@ -48,4 +47,4 @@ const ExpeditionsBox = (props) => {
     );
 }
 
-export default ExpeditionsBox;
+export default DepotagesPlanifier;

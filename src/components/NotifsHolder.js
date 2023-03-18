@@ -1,4 +1,4 @@
-import {useEffect, useId} from "react";
+import {useId} from "react";
 import {useQuery} from "react-query";
 import {notificationService} from "../_services";
 import {ThreeDots} from "react-loader-spinner";
@@ -60,11 +60,29 @@ const NotifsHolder = (props) => {
             notifs_box_holder.classList.remove('border-danger');
             notifs_icon.classList.remove('text-danger');
             notifs_holder.innerHTML = '';
-        }, 60000); // 5 min
+        }, 60000); // 1 min
         // utes in milliseconds
         return () => clearInterval(interval);
     });
 
+    channel.bind('sdfm-vehicule-quai', function (data) {
+        // new_notifs = JSON.stringify(data);
+        new_notifs = data;
+        if (dataType === "depotage") {
+            outputData = `Le vehicule ${new_notifs.vehicule} est sure le quai N ${new_notifs.N_de_quai}`;
+        }
+        notifs_box_holder.classList.add('border-danger');
+        notifs_icon.classList.add('text-danger');
+        notifs_holder.innerHTML = outputData;
+        audio.play();
+        const interval = setInterval(() => {
+            notifs_box_holder.classList.remove('border-danger');
+            notifs_icon.classList.remove('text-danger');
+            notifs_holder.innerHTML = '';
+        }, 60000); // 1 min
+        // utes in milliseconds
+        return () => clearInterval(interval);
+    });
 
     return (
         <>

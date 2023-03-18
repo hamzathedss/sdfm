@@ -3,10 +3,10 @@ import {useId} from "react";
 import {depotageService} from "../_services";
 import {ThreeDots} from "react-loader-spinner";
 
-const DepotagesEncours = () => {
+const DepotagesSortie = () => {
     const randomID = useId();
 
-    const {isLoading, data} = useQuery(randomID, () => depotageService.getDepotageEncours());
+    const {isLoading, data} = useQuery(randomID, () => depotageService.getDepotageSortie());
     const depotagesData = data || {"data": []}
 
     if (isLoading) {
@@ -47,4 +47,4 @@ const DepotagesEncours = () => {
     );
 }
 
-export default DepotagesEncours;
+export default DepotagesSortie;
