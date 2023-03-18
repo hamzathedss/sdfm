@@ -69,7 +69,7 @@ const NotifsHolder = (props) => {
         // new_notifs = JSON.stringify(data);
         new_notifs = data;
         if (dataType === "depotage") {
-            outputData = `Le vehicule ${new_notifs.vehicule} est sure le quai N ${new_notifs.N_de_quai}`;
+            outputData = `Le vehicule ${new_notifs.vehicule} est sur le quai N ${new_notifs.N_de_quai}`;
         }
         notifs_box_holder.classList.add('border-danger');
         notifs_icon.classList.add('text-danger');
