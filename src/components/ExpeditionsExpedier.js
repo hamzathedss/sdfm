@@ -3,11 +3,10 @@ import {useId} from "react";
 import {expeditionService} from "../_services";
 import {ThreeDots} from "react-loader-spinner";
 
-const ExpeditionsBox = (props) => {
+const ExpeditionsExpedier = () => {
     const randomID = useId();
-    let dataType = props.name;
 
-    const {isLoading, data} = useQuery(randomID, () => expeditionService.getExpeditionData(dataType));
+    const {isLoading, data} = useQuery(randomID, () => expeditionService.getExpeditionExpedier());
     const expeditionData = data || {"data": []}
 
     if (isLoading) {
@@ -50,4 +49,4 @@ const ExpeditionsBox = (props) => {
     );
 }
 
-export default ExpeditionsBox;
+export default ExpeditionsExpedier;

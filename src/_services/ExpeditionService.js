@@ -1,21 +1,25 @@
 import Axios from "./ServiceCaller";
 
-let getExpeditionData = async (dataType) => {
-    if (dataType === 'planifier') {
-        const {data} = await Axios.get('/get-expeditions-planifier');
-        return data;
-    } else if (dataType === 'encours') {
-        const {data} = await Axios.get('/get-expeditions-encours');
-        return data;
-    } else if (dataType === 'expedier') {
-        const {data} = await Axios.get('/get-expeditions-expedier');
-        return data;
-    } else if (dataType === 'sortie') {
-        const {data} = await Axios.get('/get-expeditions-sortie');
-        return data;
-    }
+let getExpeditionPlanifier = async () => {
+    const {data} = await Axios.get('/get-expeditions-planifier');
+    return data;
+}
+
+let getExpeditionEncours = async () => {
+    const {data} = await Axios.get('/get-expeditions-encours');
+    return data;
+}
+
+let getExpeditionExpedier = async () => {
+    const {data} = await Axios.get('/get-expeditions-expedier');
+    return data;
+}
+
+let getExpeditionSortie = async () => {
+    const {data} = await Axios.get('/get-expeditions-sortie');
+    return data;
 }
 
 export const expeditionService = {
-    getExpeditionData
+    getExpeditionPlanifier, getExpeditionEncours, getExpeditionExpedier, getExpeditionSortie
 };
