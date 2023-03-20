@@ -3,12 +3,23 @@ import ExpeditionsPlanifier from "../../components/ExpeditionsPlanifier";
 import ExpeditionsEncours from "../../components/ExpeditionsEncours";
 import ExpeditionsExpedier from "../../components/ExpeditionsExpedier";
 import ExpeditionsSortie from "../../components/ExpeditionsSortie";
+import Pusher from "pusher-js";
 
 const Expeditions = () => {
+    Pusher.logToConsole = false;
 
+    let pusher = new Pusher('5fdf984542cc12f08fb0', {
+        cluster: 'eu'
+    });
+    let channel = pusher.subscribe('sdfm-channel');
+    channel.bind('sdfm-expedition-reload', function (data) {
+        if (data.data === 'new record') {
+            window.location.reload();
+        }
+    });
     return (
         <div>
-            <Header title="Suivi d'Expédition" alpha_num="GWT62-UJSA&M%" type="expedition"/>
+            <Header title="Suivi d'Expédition" type="expedition"/>
             <div className="kanban-view-holder p-4">
                 <div className="view-content">
                     <div className="row mb-5 mb-lg-4">

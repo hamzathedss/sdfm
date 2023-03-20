@@ -1,6 +1,5 @@
-import {useEffect, useId, useRef, useState} from "react";
+import {useEffect, useId, useState} from "react";
 import LogoText from "../assets/logotext.png";
-import NotificationSound from "../assets/notification_sound.wav";
 import NotifsHolder from "./NotifsHolder";
 import {useQuery} from "react-query";
 import {notificationService} from "../_services";
@@ -18,11 +17,6 @@ const Header = (props) => {
     }
     else if (props.type === "expedition") {
         qualityNum = qualityNumbers.num_expedition;
-    }
-
-    const audioPlayer = useRef(null);
-    function playAudio() {
-        audioPlayer.current.play();
     }
 
     const updateTime = () => {
@@ -71,10 +65,6 @@ const Header = (props) => {
                 <div>
                     <NotifsHolder type={props.type}/>
                 </div>
-            </div>
-            <div className="me-4 d-none">
-                <button onClick={playAudio}>Play</button>
-                <audio ref={audioPlayer} src={NotificationSound}/>
             </div>
         </div>
     );

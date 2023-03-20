@@ -1,123 +1,122 @@
-import {useId} from "react";
-import {useQuery} from "react-query";
-import {notificationService} from "../_services";
-import {ThreeDots} from "react-loader-spinner";
+import {useState} from "react";
 import {FaBell} from "react-icons/fa";
 import Pusher from 'pusher-js';
 import NotificationSound from "../assets/notification_sound.wav";
 
 const NotifsHolder = (props) => {
-    const randomID = useId();
-
     let dataType = props.type;
-    const {isLoading, data} = useQuery(randomID, () => notificationService.getLastNotification(dataType));
-    const notificationData = data || {"data": []}
+
+    const [outputData_Depo, setOutputData_Depo] = useState('');
+    const [boxDepoRed, setDepoBoxRed] = useState(false);
+    const [iconDepoRed, setIconDepoRed] = useState(false);
+
+    const boxDepoClasses = 'background-gray-color rounded-3 p-3 border shadow-sm d-flex align-items-center ' + (boxDepoRed ? 'border-danger' : 'border-primary');
+    const iconDepoClasses = (iconDepoRed ? 'text-danger' : 'text-primary');
+
+    const [outputDataExpo_1, setOutputData_1] = useState('');
+    const [outputDataExpo_2, setOutputData_2] = useState('');
+    const [boxExpoRed, setExpoBoxRed] = useState(false);
+    const [iconExpoRed, setIconExpoRed] = useState(false);
+
+    const boxExpedClasses = 'background-gray-color rounded-3 p-2 border shadow-sm ' + (boxExpoRed ? 'border-danger' : 'border-primary');
+    const iconExpoClasses = (iconExpoRed ? 'text-danger' : 'text-primary');
 
     const audio = new Audio(NotificationSound);
 
-    if (isLoading) {
-        return (
-            <div>
-                <ThreeDots
-                    height="40"
-                    width="40"
-                    radius="9"
-                    color="#2068BD"
-                    ariaLabel="three-dots-loading"
-                    wrapperStyle={{justifyContent: "center"}}
-                    wrapperClassName=""
-                    visible={true}
-                />
-            </div>
-        );
-    }
+    Pusher.logToConsole = false;
 
-    // Enable pusher logging - don't include this in production
-    Pusher.logToConsole = true;
-
-    var pusher = new Pusher('5fdf984542cc12f08fb0', {
+    let pusher = new Pusher('5fdf984542cc12f08fb0', {
         cluster: 'eu'
     });
 
-    let new_notifs;
-    let outputData;
-    var channel = pusher.subscribe('sdfm-channel');
-    let notifs_box_holder = document.getElementById("notifs_box_holder");
-    let notifs_holder = document.getElementById("notifs_holder");
-    let notifs_icon = document.getElementById("notifs_icon");
+    let new_notifs, outputData, outputData1, outputData2;
 
-    channel.bind('sdfm-depotage', function (data) {
-        // new_notifs = JSON.stringify(data);
-        new_notifs = data;
-        if (dataType === "depotage") {
-            outputData = `${new_notifs.vehicule} de ${new_notifs.client} est en parc`;
-        }
-        notifs_box_holder.classList.add('border-danger');
-        notifs_icon.classList.add('text-danger');
-        notifs_holder.innerHTML = outputData;
-        audio.play();
-        const interval = setInterval(() => {
-            notifs_box_holder.classList.remove('border-danger');
-            notifs_icon.classList.remove('text-danger');
-            notifs_holder.innerHTML = '';
-        }, 60000); // 1 min
-        // utes in milliseconds
-        return () => clearInterval(interval);
-    });
+    let channel = pusher.subscribe('sdfm-channel');
 
-    channel.bind('sdfm-vehicule-quai', function (data) {
-        // new_notifs = JSON.stringify(data);
-        new_notifs = data;
-        if (dataType === "depotage") {
+    if (dataType === "depotage") {
+        channel.bind('sdfm-depotage-notification', function (data) {
+            new_notifs = data;
             outputData = `Le vehicule ${new_notifs.vehicule} est sur le quai N ${new_notifs.N_de_quai}`;
-        }
-        notifs_box_holder.classList.add('border-danger');
-        notifs_icon.classList.add('text-danger');
-        notifs_holder.innerHTML = outputData;
-        audio.play();
-        const interval = setInterval(() => {
-            notifs_box_holder.classList.remove('border-danger');
-            notifs_icon.classList.remove('text-danger');
-            notifs_holder.innerHTML = '';
-        }, 60000); // 1 min
-        // utes in milliseconds
-        return () => clearInterval(interval);
-    });
+            setDepoBoxRed(!boxDepoRed);
+            setIconDepoRed(!iconDepoRed);
+            setOutputData_Depo(outputData);
+            audio.play();
+            const interval = setInterval(() => {
+                setDepoBoxRed(false);
+                setIconDepoRed(false);
+                setOutputData_Depo('');
+                window.location.reload();
+            }, 60000); // 1 min
+            // utes in milliseconds
+            return () => clearInterval(interval);
+        });
+        channel.bind('sdfm-depotage-parc', function (data) {
+            new_notifs = data;
+            outputData = `${new_notifs.vehicule} de ${new_notifs.client} est en parc`;
+            setDepoBoxRed(!boxDepoRed);
+            setIconDepoRed(!iconDepoRed);
+            setOutputData_Depo(outputData);
+            audio.play();
+            const interval = setInterval(() => {
+                setDepoBoxRed(false);
+                setIconDepoRed(false);
+                setOutputData_Depo('');
+            }, 60000); // 1 min
+            // utes in milliseconds
+            return () => clearInterval(interval);
+        });
+    }
+
+    if (dataType === "expedition") {
+        channel.bind('sdfm-expedition-notification', function (data) {
+            new_notifs = data;
+            if (new_notifs.data.length > 0) {
+                outputData1 = `${new_notifs.data[0].n_picking_order} : `;
+                outputData1 += `${new_notifs.data[0].Destinataire} - ${new_notifs.data[0].NB_Colis_declare} colis`;
+                if (new_notifs.data.length > 1) {
+                    outputData1 += `, ${new_notifs.data[1].Destinataire} - ${new_notifs.data[1].NB_Colis_declare} colis`;
+                }
+                if (new_notifs.data.length > 2) {
+                    outputData2 = `${new_notifs.data[2].Destinataire} - ${new_notifs.data[2].NB_Colis_declare} colis`;
+                }
+                if (new_notifs.data.length > 3) {
+                    outputData2 += `, ${new_notifs.data[3].Destinataire} - ${new_notifs.data[3].NB_Colis_declare} colis`;
+                }
+            }
+            setExpoBoxRed(!boxExpoRed);
+            setIconExpoRed(!iconExpoRed);
+            setOutputData_1(outputData1);
+            outputData2 = outputData2 !== '' ? outputData2 : '';
+            setOutputData_2(outputData2);
+            audio.play();
+            const interval = setInterval(() => {
+                setExpoBoxRed(false);
+                setIconExpoRed(false);
+                setOutputData_1('');
+                setOutputData_2('');
+                window.location.reload();
+            }, 60000); // 1 min
+            // utes in milliseconds
+            return () => clearInterval(interval);
+        });
+    }
 
     return (
         <>
             {dataType === "depotage" && (
-                <div id="notifs_box_holder"
-                     className="background-gray-color rounded-3 p-3 border border-primary shadow-sm d-flex align-items-center">
-                    <div><FaBell size="25" className="text-primary" id="notifs_icon"/></div>
-                    <div id="notifs_holder"
-                         className="text-center flex-grow-1">{Object.keys(notificationData).length === 0 ? '' : `${notificationData.vehicule_id} de ${notificationData.client_id} en parc`}</div>
+                <div className={boxDepoClasses}>
+                    <div><FaBell size="25" className={iconDepoClasses}/></div>
+                    <div className="text-center flex-grow-1">{outputData_Depo}</div>
                 </div>
             )}
             {dataType === "expedition" && (
-                <div className="background-gray-color rounded-3 p-2 border border-danger shadow-sm d-flex">
-                    <div><FaBell size="25" className="text-danger"/></div>
-                    <div id="notifs_holder" className="text-center flex-grow-1">
-                        <span
-                            className="fw-bold me-2 text-black-50">{notificationData[0] ? `${notificationData[0].n_picking_order}:` : ''}</span>
-                        {Object.values(notificationData).map((ele, index) =>
-                            <span key={index}>
-                                <span className="d-none d-sm-inline">
-                                    <span
-                                        className="me-2">{ele.Destinataire} - {ele.NB_Colis_declare}{(index !== 1 && index !== 3) && (<>,</>)}</span>
-                                    {index === 1 && (
-                                        <br/>
-                                    )}
-                                </span>
-                                <span className="d-sm-none">
-                                    <div
-                                        className="me-2">{ele.Destinataire} - {ele.NB_Colis_declare}{(index !== 3) && (<>,</>)}
-                                    </div>
-                                </span>
-                            </span>
-                        )}
+                <>
+                    <div className={boxExpedClasses}>
+                        <div><FaBell size="25" className={iconExpoClasses}/></div>
+                        <div className="text-center flex-grow-1">{outputDataExpo_1}</div>
+                        <div className="text-center flex-grow-1">{outputDataExpo_2}</div>
                     </div>
-                </div>
+                </>
             )}
         </>
     );

@@ -3,11 +3,24 @@ import DepotagesEncours from "../../components/DepotagesEncours";
 import DepotagesPlanifier from "../../components/DepotagesPlanifier";
 import DepotagesTerminees from "../../components/DepotagesTerminees";
 import DepotagesSortie from "../../components/DepotagesSortie";
+import Pusher from "pusher-js";
 
 const Depotages = () => {
+    Pusher.logToConsole = false;
+
+    let pusher = new Pusher('5fdf984542cc12f08fb0', {
+        cluster: 'eu'
+    });
+    let channel = pusher.subscribe('sdfm-channel');
+    channel.bind('sdfm-depotage-reload', function (data) {
+        if (data.data === 'new record') {
+            window.location.reload();
+        }
+    });
+
     return (
         <div>
-            <Header title="Suivi de Dépotage" alpha_num="&HSUA-?YHW@O6" type="depotage"/>
+            <Header title="Suivi de Dépotage" type="depotage"/>
             <div className="kanban-view-holder p-4">
                 <div className="view-content">
                     <div className="row mb-5 mb-lg-4">
