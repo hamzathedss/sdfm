@@ -18,7 +18,7 @@ const NewsFooter = () => {
 
     const audio = new Audio(NotificationSound);
 
-    Pusher.logToConsole = true;
+    Pusher.logToConsole = false;
 
     let pusher = new Pusher('5fdf984542cc12f08fb0', {
         cluster: 'eu'
