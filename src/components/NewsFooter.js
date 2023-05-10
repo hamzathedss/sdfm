@@ -50,13 +50,19 @@ const NewsFooter = () => {
         );
     }
 
-    return (
-        <Ticker isNewsTicker={true} slideSpeed="20">
-            <NewsTicker id={noteId || noteData[0].id}
-                        title={noteDescription || noteData[0].description}
-                        meta={noteName || noteData[0].name} url=""/>
-        </Ticker>
-    );
+    if (noteData) {
+        return (
+            <></>
+        )
+    } else {
+        return (
+            <Ticker isNewsTicker={true} slideSpeed="20">
+                <NewsTicker id={noteId || noteData[0].id}
+                            title={noteDescription || noteData[0].description}
+                            meta={noteName || noteData[0].name} url=""/>
+            </Ticker>
+        );
+    }
 }
 
 export default NewsFooter;
