@@ -1,6 +1,7 @@
 import {NavLink} from "react-router-dom";
 import LogoIcon from "../assets/logoicon.png";
 import {FaBoxes, FaPallet} from "react-icons/fa";
+import {MdOutlineDirectionsBoat} from "react-icons/md";
 
 const Sidebar = () => {
     const menuItem = [
@@ -13,6 +14,11 @@ const Sidebar = () => {
             path: "/expeditions",
             name: "Expeditions",
             icon: <FaPallet size="30"/>
+        },
+        {
+            path: "/imports",
+            name: "Imports",
+            icon: <MdOutlineDirectionsBoat size="30"/>
         }
     ]
 
