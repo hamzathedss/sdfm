@@ -56,9 +56,9 @@ const Header = (props) => {
                     <span className="fw-bold text-main-color">
                         {props.title}
                     </span>
-                    <div className="text-black-50 small">
-                        {qualityNum}
-                    </div>
+                    {/*<div className="text-black-50 small">*/}
+                    {/*    {qualityNum}*/}
+                    {/*</div>*/}
                 </div>
             </div>
             <div className="col-xl-5 mb-2">

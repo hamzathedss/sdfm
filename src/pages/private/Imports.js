@@ -20,7 +20,7 @@ const Imports = () => {
 
     return (
         <div>
-            <Header title="Suivi de Dépotage" type="depotage"/>
+            <Header title="Suivi des Imports" type="depotage"/>
             <div className="kanban-view-holder p-4">
                 <div className="view-content">
                     <div className="row mb-5 mb-lg-4">
